@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Numerical Optimization with applications: Homework 05}
+\renewcommand{\author}{104021601 林俊傑\\104021602 吳彥儒\\104021615 黃翊軒}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize November 23, 2016}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  
+  \setcounter{exercise}{5}
+  
+  \begin{exercise}
+  	The square root of a matrix $A$ is a matrix  $A^{1/2}$ such that $A^{1/2}A^{1/2}=A$. Show that any symmetric positive definite matrix $A$ has a square root, and that this square root is itself symmetric and positive definite.(Hint: factorization $A=UDU^{T}$ (A.16), where $U$ is orthogonal and $D$ is diagonal with positive diagonal elements.)
+  \end{exercise}  
+  \begin{proof}
+  	First, we show that a real symmetric matrix $A$ is diagonalizable. Prove it by contradiction, which means there is a generalized eigenvector $v$ of order 2, that is $(A-\lambda I)v \neq 0$ and $(A-\lambda I)^{2}=0$, and we have the following statement.
+  	\begin{align*}
+  	0&=v^{T}(A-\lambda I)^{2}v = v^{T}(A-\lambda I)^{T}(A-\lambda I)v\\
+  	&=\|(A-\lambda I)v\|^{2}\neq 0\rightarrow\leftarrow
+  	\end{align*}
+  	Thus, every eigenvector of $A$ is of order 1 and $A$ is diagonalizable. We may Assume $A=UDU^{T}$, where $U$ is orthogonal and by $A>0$, $D=diag(\lambda_{1},\lambda_{2},...,\lambda_{n})$ is diagonal with positive diagonal elements.\\
+  	Define the square root of $A$
+  	\begin{align*}
+  	A^{1/2} := U\sqrt{D}U^{T}=U diag(\sqrt{\lambda_{1}},\sqrt{\lambda_{2}},...\sqrt{\lambda_{n})} U^{T}
+  	\end{align*}
+  	Obviously, $A^{1/2}$ is symmetric, and positive number $\sqrt{\lambda_{i}}$ is the eigenvalue correspond to the $i$th column vector of $U$. Hence $A^{1/2}$ is also positive definite.
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  \end{proof}  
+
+  \setcounter{exercise}{9}
+  \begin{exercise}
+  \begin{enumerate}
+  \item Show that $\det(I+xy^T)=1+y^Tx$, where x and y are $n$-vectors.
+  \item Using similar technique to prove that
+  \[ \det(I+xy^T+uv^T)=(1+y^Tx)(1+v^Tu)-(x^Tv)(y^Tu). \]
+  \item Use this relation to establish 
+  \[ \det(B_{k+1})=\det(B_k)\frac{y_k^Ts_k}{s_k^TB_ks_k}. \]
+  \end{enumerate}
+  \end{exercise}  
+  
+
+  \begin{proof}
+  \begin{enumerate}[(a)]
+  \item Assuming $x\neq0$, we can find vectors $q_1,q_2,\cdots,q_{n-1}$ such that the matrix Q defined by
+  \[ Q=[x,q_1,q_2,\cdots,q_{n-1}] \]
+  is nonsingular and $x=Qe_1$.If we define
+  \[ y^TQ=(w_1,w_2,\cdots,w_n) \]
+  then
+  \[ w_1=y^TQe_1=y^Tx \]
+  and\\
+  $ \det(I+xy^T)=\det(Q^{-1}(I+xy^T)Q)=\det(I+Q^{-1}xy^TQ)=\det(I+e_1y^TQ)$\\
+  $ =\det\left(I+
+    \begin{bmatrix}
+ 	 	1\\
+ 	 	0\\
+ 	 	\vdots\\
+  		0\\
+  	\end{bmatrix} 
+  (w_1,w_2,\cdots,w_n)\right)=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 & \cdots & w_{n-1} & w_n\\
+ 	 	0 & 1 & \cdots & 0 & 0\\
+ 	 	\vdots & \hfill & \ddots & \vdots & \vdots\\
+ 	 	0& 0 & \cdots & 1 & 0\\
+  		0& 0 & \cdots & 0 & 1\\
+  	\end{bmatrix} 
+  \right) $\\
+  $=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 & \cdots & w_{n-1}\\
+ 	 	0 & 1 & \cdots & 0\\
+ 	 	\vdots & \hfill & \ddots & \vdots\\
+  		0& 0 & \cdots & 1\\
+  	\end{bmatrix} 
+  \right)$
+  $=\cdots=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 \\
+ 	 	0 & 1 \\
+  	\end{bmatrix} 
+  \right)$\\
+  $=1+w_1=1+y^Tx$
+  \item Assuming $x,u\neq0$, we can find vectors $q_1,q_2,\cdots,q_{n-2}$ such that the matrix Q defined by
+  \[ Q=[x,u,q_1,q_2,\cdots,q_{n-2}] \]
+  is nonsingular and $x=Qe_1$, $u=Qe_2$.If we define
+  \[ y^TQ=(w_1,w_2,\cdots,w_n) \]
+  \[ v^TQ=(z_1,z_2,\cdots,z_n) \]
+  then
+  \[ w_1=y^TQe_1=y^Tx \qquad w_2=y^TQe_2=y^Tu \]
+  \[ z_1=v^TQe_1=v^Tx \qquad z_2=v^TQe_2=v^Tu \]
+  and\\
+  $ \det(I+xy^T+uv^T)=\det \left( I+[x \quad u]
+  \begin{bmatrix}
+ 	 	y^T\\
+ 	 	v^T\\
+  \end{bmatrix} 
+   \right)=\det \left( Q^{-1}( I+[x~u]
+  \begin{bmatrix}
+ 	 	y^T\\
+ 	 	v^T\\
+  \end{bmatrix} 
+   )Q \right)$\\
+  $=\det \left( I+[Q^{-1}x \quad Q^{-1}u]
+  \begin{bmatrix}
+ 	 	y^TQ\\
+ 	 	v^TQ\\
+  \end{bmatrix} 
+  \right)=\det\left( I+[e_1 \quad e_2]
+  \begin{bmatrix}
+ 	 	w_1 & w_2 & \cdots & w_n\\
+ 	 	z_1 & z_2 & \cdots & z_n\\
+  \end{bmatrix} 
+  \right)$\\
+  $ =\det\left(I+
+    \begin{bmatrix}
+ 	 	1 & 0\\
+ 	 	0 & 1\\
+ 	 	\vdots & \vdots\\
+  		0 & 0\\
+  	\end{bmatrix} 
+  \begin{bmatrix}
+ 	 	w_1 & w_2 & \cdots & w_n\\
+ 	 	z_1 & z_2 & \cdots & z_n\\
+  \end{bmatrix} 
+  \right)=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 & \cdots & w_{n-1} & w_n\\
+ 	 	z_1 & 1+z_2 & \cdots & z_{n-1} & z_n\\
+ 	 	\vdots & \hfill & \ddots & \vdots & \vdots\\
+  		0& 0 & \cdots & 1 & 0\\
+  		0& 0 & \cdots & 0 & 1\\
+  	\end{bmatrix} 
+  \right) $\\
+  $=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 & \cdots & w_{n-1}\\
+ 	 	z_1 & 1+z_2 & \cdots & z_{n-1}\\
+ 	 	\vdots & \hfill & \ddots & \vdots\\
+  		0& 0 & \cdots & 1\\
+  	\end{bmatrix} 
+  \right)$
+  $=\cdots=\det \left(
+    \begin{bmatrix}
+ 	 	1+w_1 & w_2 \\
+ 	 	z_1 & 1+z_2 \\
+  	\end{bmatrix} 
+  \right)$\\
+  $=(1+w_1)(1+z_2)-z_1w_2=(1+y^Tx)(1+v^Tu)-(x^Tv)(y^Tu)$
+  \item We have $\displaystyle B_{k+1}=B_k-\frac{B_ks_ks_k^TB_k}{s_k^TB_ks_k}+\frac{y_ky_k^T}{y_k^Ts_k}$. So, 
+  \[ \det(B_{k+1})=\det(B_k)\det \left( I+\left( \frac{-s_k}{s_k^TB_ks_k} \right)(s_k^TB_k) \left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) (y_k^T)\right)\]\\
+  Let
+  \[ x=\left( \frac{-s_k}{s_k^TB_ks_k} \right) \quad y^T=(s_k^TB_k) \quad u=\left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) \quad v^T=(y_k^T) \]
+  Using (b), we can caculate\\
+  $\displaystyle \det \left( I+\left( \frac{-s_k}{s_k^TB_ks_k} \right)(s_k^TB_k) + \left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) (y_k^T)\right)$\\
+  $\displaystyle =\left[ 1+(s_k^TB_k)\left( \frac{-s_k}{s_k^TB_ks_k} \right) \right] \left[ 1+(y_k^T)\left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) \right] -\left[ (y_k^T)\left( \frac{-s_k}{s_k^TB_ks_k} \right) \right] \left[ (s_k^TB_k)\left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) \right]$\\
+  $\displaystyle =0\times \left[ 1+(y_k^T)\left( \frac{B_k^{-1}y_k}{y_k^Ts_k} \right) \right] -\left[ \frac{-y_k^Ts_k}{s_k^TB_ks_k} \right] \times1=\frac{y_k^Ts_k}{s_k^TB_ks_k}$\\
+  We conclude that
+  \[ \det(B_{k+1})=\det(B_k)\frac{y_k^Ts_k}{s_k^TB_ks_k} \]
+  \end{enumerate}
+  \end{proof}
+  
+  \setcounter{exercise}{11}
+  \begin{exercise}
+  	Show that if $f$ satisfies Assumption 6.1 and if the sequence of gradients satisfies $\liminf \|\nabla f_k\| = 0$, , then the whole sequence of iterates $x$ converges to the solution $x^*$.
+  \end{exercise}
+  \begin{proof}
+  	Since $f(x_k)$ deceases at each step and by Assumption 6.1(ii) the convexity of the set $\mathcal{L} = \{x|f(x)\le f(x_0)\}$ , the fact $\liminf \|\nabla f_k\| = 0$ implies there exists a subsequence $\{x_{n_j}\}$ converges to the unique minimizer $x^*$. We are now proving the whole sequence $\{x_k\}$ converges to $x^*$.
+  	By Taylor's thm, for all $x \in \mathbb{R}^n$ we have
+  	$$
+  	f(x) = f(x^*+(x-x^*)) = f(x^*) + \nabla f(x^*)^T(x-x^*) + \frac{1}{2}(x-x^*)^T\nabla^2 f(\xi)(x-x^*)
+  	$$
+  	If $x$ belongs to $\mathcal{L} = \{x|f(x)\le f(x_0)\}$ and satisfies $$f(x) \le f(x^*) + \varepsilon$$ for some given $\varepsilon > 0$, we obtain following by using the fact $\nabla f(x^*) = 0$
+  	$$  	
+  	\frac{1}{2}(x-x^*)^T\nabla^2 f(\xi)(x-x^*) \le \varepsilon.
+  	$$
+  	By Assumption 6.1(ii) again, we conclude that
+  	$$
+  	m\|x-x^*\|_2^2 \le (x-x^*)^T\nabla^2 f(\xi)(x-x^*) \le 2\varepsilon.
+  	$$
+  	So, 
+  	$$
+  	\|x-x^*\|_2^2 \le (2\varepsilon/m)
+  	$$
+  	On the other hand, the whole sequence $\{f(x_k)\}$ is nonincreasing by any descent direction Algorithm, and we already know that there exists a subsequence $\{f(x_{n_j})\}$ converges to the $f(x^*)$. 
+  	So given $\varepsilon > 0$, we can find a $N \in \mathbb{N}$ such that
+  	$$
+  	f(x_k) \le f(x_{n_j}) \le f(x*) + \varepsilon
+  	$$
+  	for all $k \ge n_j \ge N.$
+  	Hence, combining the two inequality gives
+  	$$
+  	\|x_k-x^*\|_2^2  \le (2\varepsilon/m)
+  	$$
+  	for for all $k \ge N.$
+  	So the whole sequence $\{x_k\}$ converges to $x^*$.
+  \end{proof}
+  
+\end{document} 

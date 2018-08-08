@@ -1,0 +1,222 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Numerical Optimization with applications: Homework 01}
+\renewcommand{\author}{104021601 林俊傑\\104021602 吳彥儒\\104021615 黃翊軒}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize September 28, 2016}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+
+  \setcounter{exercise}{0}
+  
+  \begin{exercise}
+  	Compute the gradient $\nabla f(x)$ and Hessian $\nabla^2 f(x)$ of the Rosenbrock function \[f (x) = 100(x_2 − x_1^2)^2 + (1 − x_1 )^2 \]Show that $x^∗ = (1,1)^T$ is the only local minimizer of this function, and that the Hessian 	matrix at that point is positive definite.
+  \end{exercise}  
+  \begin{proof}
+  	Calculating the gradient of $f(x)$
+  	$$\nabla f(x)=
+  	\begin{bmatrix}
+  	f_{x_1}\\ 
+  	f_{x_2}
+  \end{bmatrix}	=
+  \begin{bmatrix}
+  	200(x_2-x_1^2)(2x_1)+2(1-x_1)(-1)\\ 
+  	200(x_2-x_1^2)
+  \end{bmatrix}=
+  \begin{bmatrix}
+	  -400x_1(x_2-x_1^2)+2(x_1-1)\\ 
+	  200(x_2-x_1^2)
+  \end{bmatrix}
+    $$
+    Solving $\nabla f(x)=0$, we obtain that $\nabla f(x)=0$ if and only if $x$ equals to $x^*=(1,1)^T$.
+  
+    On the other hand, calculating the Hessian of $f(x)$
+  
+    $$\nabla^2 f(x)
+    =
+    \begin{bmatrix}
+    f_{x_1x_1} & f_{x_1x_2}\\ 
+    f_{x_2x_1} & f_{x_2x_2}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+	  400(x_2-x_1^2)-400x_1(2x_2)+4 & 400x_1\\ 
+	  -400x_1 & 200
+    \end{bmatrix}
+    $$
+    Observe that
+    \begin{align*}
+    P^T\nabla^2 f(x^*)P
+    &=
+    \begin{bmatrix}
+    p_1& p_2
+    \end{bmatrix}
+    \begin{bmatrix}
+    804&400 \\ 
+    -400&200 
+    \end{bmatrix}
+    \begin{bmatrix}
+    p_1 \\ 
+    p_2 
+    \end{bmatrix}\\
+    &=804p_1^2+400p_1p_2-400p_1p_2+200p_2^2 \\
+    &=804p_1^2+200p_2^2 
+    \end{align*}
+    Therefore, $P^T\nabla^2 f(x^*)P > 0$ for all nonzero vector $P$. \textit{ i.e. the Hessian matrix at $x^*$ is positive definite.} By Theorem2.4 (Second-Order Sufficient Conditions),  $x^∗ = (1,1)^T$ is the only local minimizer of this function.
+  \end{proof}
+  
+  \setcounter{exercise}{6}
+  
+  \begin{exercise}
+  	Suppose that $f(x) = x^{T}Qx$, where $Q$ is an $n\times n$ symmetric positive semidefinite matrix. Show using the definition (1.4) that $f(x)$ is convex on the domain $\mathbb{R}^{n}$.Hint: It may be convenient to prove the following equivalent inequality:
+\begin{align*}
+f(y+\alpha(x-y))-\alpha f(x) - (1-\alpha)f(y)\leq 0
+\end{align*}
+for all $\alpha \in [0, 1]$ and all $x, y \in  \mathbb{R} $.
+  \end{exercise}  
+  \begin{proof}
+By the definition of $f$ and $(1.4)$, for any $x, y \in \mathbb{R}^{n}$
+\begin{align*}
+&f(y + \alpha(x-y))-\alpha f(x)-(1-\alpha )f(y)\\
+&=(y+\alpha(x-y))^{T}Q(y+\alpha(x-y))-\alpha x^{T}Qx-(1-\alpha)y^{T}Qy\\
+&=y^{T}Qy+\alpha y^{T}Q(x-y)+\alpha(x-y)^{T}Qy+\alpha^{2}(x-y)^{T}Q(x-y)-\alpha x^{T}Qx-(1-\alpha)y^{T}Qy\\
+&=\alpha[y^{T}Qy+y^{T}Q(x-y)-x^{T}Qx+(x-y)^{T}Qy]+\alpha^{2}(x-y)^{T}Q(x-y)\\
+&=\alpha[y^{T}Qx-x^{T}Qx+(x-y)^{T}Qy]+\alpha^{2}(x-y)^{T}Q(x-y)\\
+&=\alpha[-(x-y)^{T}Qx+(x-y)^{T}Qy]+\alpha^{2}(x-y)^{T}Q(x-y)\\
+&=-\alpha(x-y)^{T}Q(x-y)+\alpha^{2}(x-y)^{T}Q(x-y)\\
+&=(\alpha-\alpha^{2})(x-y)^{T}Q(x-y)\leq0\\
+\end{align*}
+since $\alpha \in [0, 1]$ and Q is positive semidefinite. This completes the proof.  	
+  \end{proof}
+  
+  \begin{exercise}
+  Suppose that $f$ is a convex function. Show that the set of global minimizer of $f$ is a convex set.	
+  \end{exercise}  
+  \begin{proof}
+  Let $E$ denotes the set of global minimizer of $f$.\\
+For any $x^{*}, y^{*}\in E$, $ f(x^{*})\leq f(y^{*})$ and $ f(y^{*})\leq f(x^{*})$. i.e. $f(x^{*})=f(y^{*})$\\
+Then for any $\alpha \in [0,1]$
+\begin{align*}
+f(\alpha x^{*}+(1-\alpha)y^{*})\leq\alpha f(x^{*})+(1-\alpha)f(y^{*}) = f(x^{*})\leq f(x)~~~~~~\forall x \in \mathbb{R}^{n}
+\end{align*}
+since $x^{*}$ is a global minimizer.\\
+By above, $f(\alpha x^{*}+(1-\alpha)y^{*})\leq f(x),\forall x \in \mathbb{R}, \alpha \in [0,1].$\\
+$E$ is a convex set.	
+  \end{proof}
+  
+  \setcounter{exercise}{15}
+  
+  \begin{exercise}
+  Consider the sequence ${x_k}$ defined by
+\[ x_k = \left\{
+\begin{array}{ll}
+\left( \frac{1}{4} \right)^{2^k}, & \mbox{k even}, \\
+(x_{k-1})/k, & \mbox{k odd}.
+\end{array} \right. \]
+Is this sequence Q-superlinearly convergent? Q-quadratically convergent? R-quadratically convergent?	
+  \end{exercise}  
+  \begin{proof}
+  Clearly, $x_k$ converges to $x^* = 0$
+\begin{enumerate}[(i)]
+\item Q-superlinearly:\\
+If k is even: $\displaystyle \lim_{k \to \infty} \frac{|x_{k+1}-x^*|}{|x_k-x*|}=\lim_{k \to \infty} \frac{\frac{x_k}{k+1}}{x_k}=\lim_{k \to \infty} \frac{1}{k+1}=0$\\
+If k is odd:$\displaystyle \lim_{k \to \infty} \frac{|x_{k+1}-x^*|}{|x_k-x*|}=\lim_{k \to \infty} \frac{x_{k+1}}{\frac{x_{k-1}}{k}}=\lim_{k \to \infty} \frac{k(\frac{1}{4})^{2^k}}{(\frac{1}{4})^{2^{k-1}}}=\lim_{k \to \infty} k(\frac{1}{4})^{2^{k-1}}=0$\\
+This implies $x_k$ is Q-superlinearly convergence.
+\item Q-quadratically:\\
+If k is even:$\displaystyle \lim_{k \to \infty} \frac{|x_{k+1}-x^*|}{|x_k-x*|^2}=\lim_{k \to \infty} \frac{\frac{x_k}{k+1}}{x_k^2}=\lim_{k \to \infty} \frac{1}{kx_k}=\lim_{k \to \infty} \frac{1}{k(\frac{1}{4})^{2^k}}=+\infty$
+This implies $x_k$ is not Q-quadratically convergent.
+\item R-quadratically:\\
+Let $\epsilon_k = \left\{
+\begin{array}{ll}
+\left( \frac{1}{4} \right)^{2^k}, & \mbox{k even}, \\
+\left( \frac{1}{4} \right)^{2^{k-1}}, & \mbox{k odd}.
+\end{array} \right.$\\
+When k is even, $|x_k-x^*|=|x_k|=(\frac{1}{4})^{2^k} \leq \epsilon_k$\\
+When k is odd, $|x_k-x^*|=|x_k|=x_{k-1}/k=(\frac{1}{4})^{2^{k-1}}(\frac{1}{k}) \leq (\frac{1}{4})^{2^{k-1}}=\epsilon_k$\\
+By the above, $|x_k-x^*| \leq \epsilon_k \quad \forall k$\\
+If k is even:$\displaystyle \lim_{k \to \infty} \frac{|\epsilon_{k+1}-0|}{|\epsilon_k-0|^2}=\lim_{k \to \infty} \frac{(\frac{1}{4})^{2^k}}{(\frac{1}{4})^{2^k}}=1$\\
+If k is odd:$\displaystyle \lim_{k \to \infty} \frac{|\epsilon_{k+1}-0|}{|\epsilon_k-0|^2}=\lim_{k \to \infty} \frac{(\frac{1}{4})^{2^{k+1}}}{(\frac{1}{4})^{2^{k-1}}}=\lim_{k \to \infty}[(\frac{1}{4})^{2^{k-1}}]^3=0$\\
+This implies $\epsilon_k$ is Q-quadratically convergent.\\
+And therefore, $x_k$ is R-quadratically convergent.
+\end{enumerate}	
+  \end{proof}
+  
+  
+
+
+\end{document} 

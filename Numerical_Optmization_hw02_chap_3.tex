@@ -1,0 +1,235 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Numerical Optimization with applications: Homework 02}
+\renewcommand{\author}{104021601 林俊傑\\104021602 吳彥儒\\104021615 黃翊軒}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize October 13, 2016}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+
+  \setcounter{exercise}{4}  
+  \begin{exercise}
+  	 Prove that $\| Bx\| \ge \frac{\lVert x\|}{\|B^{-1}\|}$ for any nonsingular matrix $B$. Use this fact to
+  	 establish $(3.19)$.
+  \end{exercise}  
+  \begin{proof}
+  	For simplicity, we drop the iteration index $k$ in the proof.\\
+  	Note that from $\(3.2\)$ we use the fact $P = -B^{-1}\nabla f$. Thus by multiplying both sides by $B$ and taking transport, we have $BP=-\nabla f$ and $P^T B^T = -\nabla f^T$. We are now  prepared to estimate $\cos \theta$ :
+	\begin{align*}
+	\cos \theta
+	&= \frac{-\nabla f^T P}{\|\nabla f\| \|P\|}\\
+	&= \frac{\(P^TB^T\)P}{\|\nabla f\|\|B^{-1}BP\|}\\
+	&= \frac{P^TBP}{\|BP\|\|B^{-1}BP\|}\\
+	&\ge \frac{P^TBP}{\|B\|\|P\|\|B^{-1}\|\|BP\|}\\
+	&= \left(\frac{P^TBP}{\|P\|\|BP\|} \right)\frac{1}{\|B\|\|B^{-1}\|}\\
+	&\ge \frac{1}{\|B\|\|B^{-1}\|} \\
+	&\ge \frac{1}{M},
+	\end{align*}  
+	where the last two inequality hold by the assumption that $B$ is positive definite and has a uniformly bounded condition number. Therefore, $\(3.19\)$ follows.
+  \end{proof}
+  
+  \setcounter{exercise}{6}  
+  \begin{exercise}
+  	Prove the result (3.28) by working through the following steps. First, use (3.26) to show that
+  	\begin{align*}
+  	\|x_{k} - x^{*}\|^{2}_{Q}-\|x_{k+1} - x^{*}\|^{2}_{Q}=2\alpha_{k}\nabla f_{k}^{T}Q(x_{k} - x^{*})-\alpha_{k}^{2}\nabla f_{k}^{T}Q\nabla f_{k}
+  	\end{align*}
+  	where $\|\cdot\|_{Q}$ is defined by (3.27). Second, use the fact that $\nabla f_{k}=Q(x_{k} - x^{*})$ to obtain
+  	\begin{align*}
+  	\|x_{k} - x^{*}\|^2_{Q}-\|x_{k+1} - x^{*}\|^2_{Q}=\frac{2(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})}-\frac{(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})}
+  	\end{align*}
+  	and
+  	\begin{align*}
+  	\|x_{k} - x^{*}\|^{2}_{Q}=\nabla f_{k}^{T}Q^{-1}\nabla f_{k}.
+  	\end{align*}
+  \end{exercise}  
+  \begin{proof}
+  	\begin{enumerate}[(1)]
+  		\item 
+  		\begin{align*}
+  		\|x_{k} &- x^{*}\|^{2}_{Q}-\|x_{k+1} - x^{*}\|^{2}_{Q}\\
+  		=~&2f(x_{k})-2f(x_{k+1})\\
+  		=~&x_k^{T}Qx_{k}-2b^{T}x_{k}-(x_{k}-\alpha_{k}\nabla f_{k})^{T}Q(x_{k}-\alpha_{k}\nabla f_{k})+2b^{T}(x_{k}-\alpha_{k}\nabla f_{k})\\
+  		=~&x_{k}^{T}Q(\alpha_{k}\nabla f_{k})+(\alpha_{k}\nabla f_{k})^{T}Qx_{k}-\alpha_{k}^{2}\nabla f_{k}^{T}Q\nabla f_{k}-2\alpha_{k}b^{T}\nabla f_{k}\\
+  		=~&2\alpha_{k}\nabla f_{k}^{T}Qx_{k}-\alpha_{k}^{2}\nabla f_{k}^{T}Q\nabla f_{k}-2\alpha_{k}(Qx^{*})^{T}\nabla f_{k}\\
+  		=~&2\alpha_{k}\nabla f_{k}^{T}Q(x_{k} - x^{*})-\alpha_{k}^{2}\nabla f_{k}^{T}Q\nabla f_{k}
+  		\end{align*}
+  		\item
+  		Combining the result of (1) and the fact that $\nabla f_{k}=Q(x_{k} - x^{*})$, we have
+  		\begin{align*}
+  		\|x_{k} &- x^{*}\|^{2}_{Q}-\|x_{k+1} - x^{*}\|^{2}_{Q}\\
+  		=~&2\alpha_{k}\nabla f_{k}^{T}\nabla f_{k} - \alpha_{k}^{2}\nabla f_{k}^{T}Q\nabla f_{k}\\
+  		=~&2(\frac{\nabla f_{k}^{T}\nabla f_{k}}{\nabla f_{k}^{T}Q\nabla f_{k}})\nabla f_{k}^{T}\nabla f_{k}-(\frac{\nabla f_{k}^{T}\nabla f_{k}}{\nabla f_{k}^{T}Q\nabla f_{k}})^{2}\nabla f_{k}^{T}Q\nabla f_{k}\\
+  		=~&\frac{2(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})}-\frac{(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})}
+  		\end{align*}
+  		\item
+  		The definition of the weight norm: $\|x\|^{2}_{Q}=x^{T}Qx$, therefore
+  		\begin{align*}
+  		\|x_{k}-x^{*}\|^{2}_{Q} &= (x_{k}-x^{*})^{T}Q(x_{k}-x^{*})\\
+  		&=(x_{k}-x^{*})T(QQ^{-1})Q(x_{k}-x^{*})\\
+  		&=(Q(x_{k}-x^{*}))^{T}Q^{-1}Q(x_{k}-x^{*})\\
+  		&=\nabla f_{k}^{T}Q^{-1}\nabla f_k
+  		\end{align*}
+  		Since $Q$ is symmetric and nonsingular.
+  		\item
+  		Now we turn to prove (3.28) by using the result of (2) and (3).
+  		\begin{align*}
+  		\|x_{k+1} - x^{*}\|^{2}_{Q}
+  		&=\|x_{k} - x^{*}\|^{2}_{Q}-\frac{(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})}\\
+  		&=\|x_{k} - x^{*}\|^{2}_{Q}-\frac{(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f^{T}_{k}Q\nabla f_{k})(\nabla f_{k}^{T}Q^{-1}\nabla f_{k})}(\nabla f_{k}^{T}Q^{-1}\nabla f_{k})\\
+  		&=(1-\frac{(\nabla f_{k}^{T}\nabla f_{k})^2}{(\nabla f_{k}^{T}Q\nabla f_{k})(\nabla f_{k}^{T}Q^{-1}\nabla f_{k})})\|x_{k} - x^{*}\|^{2}_{Q}
+  		\end{align*}
+  		Therefore the proof is completed. 
+  	\end{enumerate}
+  \end{proof}
+  
+  \begin{exercise}
+  	Let $Q$ be a positive definite symmetric matrix. Prove that for any vector $x$, we have
+  	\[\frac{(x^Tx)^2}{(x^TQx)(x^TQ^{-1}x)}\geq\frac{4\lambda_n\lambda_1}{(\lambda_n+\lambda_1)^2}\]
+  	where $\lambda_n$ and $\lambda_1$ are, respectively the largest and smallest eigenvalues of $Q$. (This relation, which is known as the Kantorovich inequality, can be used to deduce (3.29) from (3.28).)
+  \end{exercise}  
+  \begin{proof}
+  	Since $Q$ is positive definite and symmetric, we have eigenvalue decompsition $Q=U\Lambda U^T$.\\ 
+  	Let $x=Uy$. Then $$\displaystyle \frac{(x^Tx)^2}{(x^TQx)(x^TQ^{-1}x)}=\frac{(y^Ty)^2}{(y^T\Lambda y)(y^T \Lambda^{-1}y)}=\frac{(\sum_{i=1}^n y_i^2)^2}{(\sum_{i=1}^n \lambda_i y_i^2)(\sum_{i=1}^n y_i^2/\lambda_i)}$$\\
+  	Let $\displaystyle \eta_i=\frac{y_i^2}{\sum_{j=1}^n y_j^2}$ and $f(\lambda)=\frac{1}{\lambda}$. Then $$\displaystyle \frac{(x^Tx)^2}{(x^TQx)(x^TQ^{-1}x)}=\frac{1}{(\sum_{i=1}^n \lambda_i \eta_i)(\sum_{i=1}^n f(\lambda_i)\eta_i)}$$\\
+  	Let $\displaystyle \lambda=\sum_{i=1}^n \lambda_i \eta_i$ ,\quad $\displaystyle \lambda_f=\sum_{i=1}^n f(\lambda_i) \eta_i$\\
+  	Since $\eta_i \geq 0 \quad \forall i$ and $\sum_{i=1}^n \eta_i = 1$, $\lambda_1 \leq \lambda \leq \lambda_n$ \\
+  	Write $\displaystyle \lambda_i=\frac{\lambda_n-\lambda_i}{\lambda_n-\lambda_1}\lambda_1+\frac{\lambda_i-\lambda_1}{\lambda_n-\lambda_1}\lambda_n$.\quad This shows $\lambda_i$ is a convex combination of $\lambda_1$ and $\lambda_n$ \quad $\forall i$\\
+  	$\because f$ is convex \quad $\displaystyle \therefore f(\lambda_i) \leq \frac{\lambda_n-\lambda_i}{\lambda_n-\lambda_1}f(\lambda_1)+\frac{\lambda_i-\lambda_1}{\lambda_n-\lambda_1}f(\lambda_n)$\\ 
+  	
+  	
+  	Therefore, $$\displaystyle \lambda_f \leq \sum_{i=1}^n \left[ \frac{\lambda_n-\lambda_i}{\lambda_n-\lambda_1}f(\lambda_1)+\frac{\lambda_i-\lambda_1}{\lambda_n-\lambda_1}f(\lambda_n) \right] \eta_i = \sum_{i=1}^n \left[ \frac{\lambda_n-\lambda_i}{\lambda_n-\lambda_1} \frac{1}{\lambda_1} + \frac{\lambda_i-\lambda_1}{\lambda_n-\lambda_1}\frac{1}{\lambda_n} \right] \eta_i $$
+  	$$\displaystyle = \sum_{i=1}^n \frac{\eta_i}{\lambda_n - \lambda_1} \left[ \frac{\lambda_n-\lambda_i}{\lambda_1}+\frac{\lambda_i-\lambda_1}{\lambda_n} \right] = \sum_{i=1}^n \frac{\eta_i}{\lambda_n - \lambda_1} \left[ \frac{\lambda_n^2-\lambda_i \lambda_n + \lambda_i \lambda_1 - \lambda_1^2}{\lambda_n \lambda_1} \right]$$
+  	$$\displaystyle =\sum_{i=1}^n \frac{\eta_i}{\lambda_n - \lambda_1} \left[ \frac{(\lambda_n+\lambda_1)(\lambda_n-\lambda_1)-\lambda_i (\lambda_n-\lambda_1)}{\lambda_n \lambda_1} \right] = \sum_{i=1}^n \frac{\lambda_n+\lambda_11-\lambda_i}{\lambda_n \lambda_1} \eta_i $$
+  	$$\displaystyle = \frac{\lambda_n \sum_{i=1}^n \eta_i + \lambda_1 \sum_{i=1}^n \eta_i - \sum_{i=1}^n \lambda_i \eta_i}{\lambda_n \lambda_1} = \frac{\lambda_n + \lambda_1 - \lambda}{\lambda_n \lambda_1}$$
+  	We conclude that $$\displaystyle \frac{(x^Tx)^2}{(x^TQx)(x^TQ^{-1}x)} = \frac{1}{\lambda \lambda_f} \geq \frac{\lambda_n \lambda_1}{\lambda(\lambda_n + \lambda_1 - \lambda)} \geq \frac{\lambda_n \lambda_1}{\max_{\lambda \in [\lambda_1,\lambda_n]} \lambda(\lambda_n + \lambda_1 - \lambda)}$$\\
+  	Let $g(\lambda) = \lambda(\lambda_n + \lambda_1 - \lambda) = -\lambda^2+(\lambda_n+\lambda_1)\lambda$. Then $g(\lambda)$ has maxmun at $\displaystyle \bar{\lambda}=\frac{\lambda_n+\lambda_1}{2} \in [\lambda_1,\lambda_n]$.\\
+  	$$\displaystyle g(\bar{\lambda})=-\frac{(\lambda_n+\lambda_1)^2}{4}+\frac{(\lambda_n+\lambda_1)^2}{2}=\frac{(\lambda_n+\lambda_1)^2}{4}$$\\
+  	This implies that $$\displaystyle \frac{(x^Tx)^2}{(x^TQx)(x^TQ^{-1}x)} \geq \frac{\lambda_n \lambda_1}{g(\bar{\lambda})} = \frac{4\lambda_n \lambda_1}{(\lambda_n+\lambda_1)^2}$$
+  	
+  	
+  \end{proof}
+
+  \setcounter{exercise}{12}  
+  \begin{exercise}
+  	Show that the quadratic function that interpolates $\phi(0)$, $\phi'(0)$, and $\phi(\alpha_0)$ is given by $(3.57)$. Then, make use of the fact that the sufficient decrease condition $(3.6a)$ is not satisfied at $\alpha (0)$ to show that this quadratic has positive curvature and that the minimizer satisfies $$\alpha_1 < \frac{\alpha_0}{2(1-c_1)}.$$ Since $c_1$ is chosen to be quite small in practice, this inequality indicates that $\alpha_1$ cannot be much greater than $\frac{1}{2}$ (and may be smaller), which gives us an idea of the new step length.
+  \end{exercise}  
+  \begin{proof}
+  	By assuming a quadratic function $$\phi_q(\alpha) = a\alpha^2+b\alpha+c$$ and solving coefficients through standard calculations, we have 
+  	$$
+  	\phi_q(0) = c = \phi(0).
+  	$$
+  	Also, since 
+  	$$
+  	\phi'_q(\alpha) = 2a\alpha+b,
+  	$$
+  	we find
+  	$$
+  	\phi'_q(0) = b = \phi'(0).
+  	$$
+  	On the other hand,
+  	$$
+  	\phi_q(\alpha_0) = \phi(\alpha_0) = a\alpha_0^2+\phi'(0)\alpha_0+\phi(0),
+  	$$
+  	we obtain
+  	$$
+  	a = \frac{\phi(\alpha_0)-\phi(0)-\phi'(0)\alpha_0}{\alpha_0^2}.
+  	$$
+  	
+  	By assumptions, we now discuss a senario that $(3.6a)$ is not satisfied at $\alpha_0$. Thus we have 
+  	$$
+  	\phi(\alpha_0)>\phi(0)+c_1\alpha_0\phi'(0).
+  	$$
+  	Hence, a minor manipulation of this inequality gives
+  	$$
+  	a = \frac{\phi(\alpha_0)-\phi(0)-\phi'(0)\alpha_0}{\alpha_0}>0,
+  	$$ 
+  	which guarantees that the quadratic has positive curvature. Moreover, since the minimizer of a quadratic is $-b/2a$, we obtain 
+  	\begin{align*}
+	  	\alpha_1 = \frac{-b}{2a} &= \frac{-\alpha_0^2\phi'(0)}{2[\phi(\alpha_0)-\phi(0)-\phi'(0)\alpha_0]}\\
+	  	&= \frac{\alpha_0}{2[1-\frac{\phi(\alpha_0)-\phi(0)}{\alpha_0\phi'(0)}]}\\
+	  	&\le \frac{\alpha_0}{2(1-c_1)},
+  	\end{align*}
+  	where the second equality holds by dividing $-\alpha_0\phi'(0)$ both upper and lower sides, and the last inequality follows from the given senario. 
+  	
+  	
+  \end{proof}      
+  
+
+
+\end{document} 

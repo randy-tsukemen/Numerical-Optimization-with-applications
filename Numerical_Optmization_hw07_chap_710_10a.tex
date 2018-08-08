@@ -1,0 +1,126 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Numerical Optimization with applications: Homework 07}
+\renewcommand{\author}{104021601 林俊傑\\104021602 吳彥儒\\104021615 黃翊軒}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize December 14, 2016}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  \begin{proof}
+  Since all norms in $\mathbb{R}^n$ are equivalent.
+  \[ \exists \alpha>0 \quad \mbox{such that} \quad \norm{x} \leq \alpha \norm{x}_{\infty} \quad \forall x \in \mathbb{R}^n \]
+  We have,\\
+  \begin{align*}  
+   \norm{J(x_1)-J(x_2)} &= \max_{\norm{y}=1} \norm{(J(x_1)-J(x_2))y}\\
+   &= \max_{\norm{y}=1} \norm{
+	\begin{bmatrix}
+	(\bigtriangledown r_1(x_1)-\bigtriangledown r_1(x_2))^Ty \\
+	\vdots\\
+	(\bigtriangledown r_m(x_1)-\bigtriangledown r_m(x_2))^Ty
+	\end{bmatrix}	   
+   }\\
+   &\leq \max_{\norm{y}=1} \alpha \norm{
+	\begin{bmatrix}
+	(\bigtriangledown r_1(x_1)-\bigtriangledown r_1(x_2))^Ty \\
+	\vdots\\
+	(\bigtriangledown r_m(x_1)-\bigtriangledown r_m(x_2))^Ty
+	\end{bmatrix}	   
+   }_{\infty}\\
+   &= \alpha \max_{\norm{y}=1}~\max_{1 \leq j \leq m} |(\bigtriangledown r_j(x_1)-\bigtriangledown r_j(x_2))^Ty|\\
+   &\leq \alpha \max_{\norm{y}=1}~\max_{1 \leq j \leq m} |(\bigtriangledown r_j(x_1)-\bigtriangledown r_j(x_2))|~|y|\\
+   &\leq \alpha \max_{\norm{y}=1}~\max_{1 \leq j \leq m} L\norm{x_1-x_2}~|y|\\
+   &= \alpha L \norm{x_1-x_2}
+  \end{align*}
+  We conclude that $J$ is Lipschitz continuous with constant $\tilde{L}=\alpha L$.
+  \end{proof}
+  
+%exercise10.2 part(b)
+\begin{proof}
+	Given $x,\tilde{x}$ in $\mathcal{D}$, we estimate
+	\begin{align*}
+	\|\nabla f(x)-\nabla f(\tilde{x})\| &= \|J(x)^Tr(x)-J(\tilde{x})^Tr(\tilde{x})\|\\
+	&= \|\left[J(x)^Tr(x)-J(\tilde{x})^Tr(x)\right] + \left[J(\tilde{x})^Tr(x)-J(\tilde{x})^Tr(\tilde{x})\right]\|\\
+	&= \|\left(J(x)^T-J(\tilde{x})^T\right)r(x) + J(\tilde{x})^T\left(r(x)-r(\tilde{x})\right)\|\\
+	& \le \|J(x)^T-J(\tilde{x})^T\||r(x)|+\|J(\tilde{x})^T\|\|r(x)-r(\tilde{x})\|\\
+	&\le M\alpha L \|x-\tilde{x}\|+M'L\|x-\tilde{x}\|\\
+	&= \mathcal{L}\|x-\tilde{x}\|
+	\end{align*}
+	where $\mathcal{L} =  M\alpha L+M'L$ and $\|J(\tilde{x})^T\|$ is bounded since it is Lipschitz continuous on a compact set $\mathcal{D}$.
+	
+\end{proof}
+\end{document} 

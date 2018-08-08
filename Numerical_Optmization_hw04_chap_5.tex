@@ -1,0 +1,157 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{thmbox}
+\usepackage{graphicx}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{url}
+\usepackage{comment}
+\usepackage{amsmath, amsthm, amssymb,enumerate}
+
+%\usepackage{enumerate}
+%\usepackage{titlesec}
+%\usepackage{Rvector}
+%\usepackage{mathabx}
+\newcommand{\qrq}{\quad\Rightarrow\quad}
+\newcommand{\qarq}{\quad&\Rightarrow\quad}
+\newcommand{\alp}{\alpha}
+\newcommand{\claim}{{\underline{\it Claim:}}~~}
+\newcommand{\dbR}{\mathbb{R}}
+\newcommand{\ndimr}{\mathbb{R}^n}
+\newcommand{\vare}{\varepsilon}
+\newcommand{\since}{\because\;}
+\newcommand{\hence}{\therefore\;}
+\newcommand{\en}{\par\noindent}
+\newcommand{\fn}{\footnotesize}
+
+\newcommand{\sect}[2]{#1~~{\mdseries\tiny(#2)}}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\let \ds=\displaystyle
+
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold=5,AutoFakeSlant=.4]{標楷體}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\thesection}{Lecture \arabic{section}}
+\renewcommand{\thesubsection}{\Roman{subsection}}
+
+\usepackage[T1]{fontenc}
+
+%%%% F U N C T I O N %%%%%
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inn}[1]{\left<#1\right>}
+\newcommand{\f}[1]{f\!\left(#1\right)}
+\newcommand{\g}[1]{g\!\left(#1\right)}
+\newcommand{\h}[1]{h\!\left(#1\right)}
+\newcommand{\x}[1]{x\!\left(#1\right)}
+\newcommand{\D}[1]{D\!\left(#1\right)}
+\newcommand{\N}[1]{N\!\left(#1\right)}
+\renewcommand{\P}[1]{P\!\left(#1\right)}
+\newcommand{\R}[1]{R\!\left(#1\right)}
+\newcommand{\V}[1]{V\!\left(#1\right)}
+\newcommand{\function}[2]{#1\!\left(#2\right)}
+\newcommand{\functions}[2]{\left(#1\right)\!\left(#2\right)}
+
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\textfil}[1]{\colorbox{light-gray}{\large\color{Red} #1}}
+
+
+\renewcommand{\title}{Numerical Optimization with applications: Homework 04}
+\renewcommand{\author}{104021601 林俊傑\\104021602 吳彥儒\\104021615 黃翊軒}
+\renewcommand{\maketitle}{\begin{center}\textbf{\Large\title}\\[6pt] {\author}\\[6pt] {\color{Gray}\footnotesize November 9, 2016}\end{center}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\newcommand{\Exercise}[2]{\textbf{Exercise #1.} \textit{#2}}
+\newtheorem{exercise}{Exercise}
+
+%\parskip=11pt
+
+\begin{document}
+
+  \maketitle
+  
+  \begin{exercise}
+  	
+  \end{exercise}  
+  \begin{proof}
+  	
+  \end{proof}
+  
+  
+  \begin{exercise}
+  	
+  \end{exercise}  
+  \begin{proof}
+
+  \end{proof}
+  
+  \setcounter{exercise}{3}
+  
+  \begin{exercise}
+  	Show that if $f(x)$ is a strictly convex quadratic, then the function $h(\sigma)\overset{\scriptscriptstyle def}{=}f(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})$ also is a strictly convex quadratic in the variable $\sigma = (\sigma_0,\sigma_1,\cdots,\sigma_{k-1})^T.$
+  \end{exercise}  
+  \begin{proof}
+	By the definition of strictly convex quadratic function, we can assume $$f(x) = \frac{1}{2}x^TAx-b^Tx,$$ where $A$ is a positive definite symmetric matrix and $b$ is a constant vector.
+	We want prove that $h(\sigma)$ is also a strictly convex quadratic function by showing $$h(\sigma) = \frac{1}{2}\sigma^TB\sigma-c^T\sigma+d,$$ where $B$ is a positive definite symmetric matrix and $c,d$ are constant vectors.
+	Since $p_i^TAp_j = 0$ for all $i\neq j$, we obtain that
+	\begin{align*}
+		h(\sigma) &= f(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})\\
+		&=\frac{1}{2}(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})^TA(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})-b^T(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})\\
+		&=\frac{1}{2}x_0^TA(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})+\frac{1}{2}(\sigma_0p_0)^TA(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})+\cdots \\ &\qquad+\frac{1}{2}(\sigma_{k-1}p_{k-1})^TA(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})-b^T(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})\\
+		&= \frac{1}{2}(\sigma_0p_0)^TA(\sigma_0p_0)+\frac{1}{2}(\sigma_1p_1)^TA(\sigma_1p_1)+\cdots + \frac{1}{2}(\sigma_{k-1}p_{k-1})^TA(\sigma_{k-1}p_{k-1})\\
+		&\qquad+\frac{1}{2}x_0^TA(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})-b^T(x_0+\sigma_0p_0+\cdots+\sigma_{k-1}p_{k-1})\\
+		&= \frac{1}{2}\sigma^T B \sigma+\frac{1}{2}x_0^TAP\sigma-b^TP\sigma+\frac{1}{2}x_0^TAx_0-b^Tx_0\\
+		&= \frac{1}{2}\sigma^T B \sigma+ (\frac{1}{2}x_0^TAP-b^TP)\sigma+\frac{1}{2}x_0^TAx_0-b^Tx_0
+	\end{align*}
+	where $B = 
+	\begin{bmatrix}
+		p_0^TAp_0 & \cdots & 0\\
+		\vdots & \ddots & \vdots\\
+		0& \cdots & p_{k-1}^TAp_{k-1}\\
+	\end{bmatrix}
+	$ is positive definite sysmmetric matrix and $P = (p_0,p_1,\cdots, p_{k-1})$ and $\sigma = (\sigma_0,\sigma_1,\cdots,\sigma_{k-1})^T.$
+	Hence, $h(\sigma)$ is also a strictly convex quadratic function.
+  \end{proof}
+  
+  \setcounter{exercise}{6}
+  
+  \begin{exercise}
+  Let $\lbrace \lambda_i,v_i \rbrace ~ i=1,2,\cdots,n$ be the eigenpairs of the symmetric matrix A. Show that the eigenvalues and eigenvectors of $[I+P_k(A)A]^TA[I+P_k(A)A]$ are $\lambda_i[1+\lambda_iP_k(\lambda_i)]^2$ and $v_i$, respectively.
+  \end{exercise}  
+  \begin{proof}
+ We first show that
+ \[ P_k(A)v_i = P_k(\lambda_i)v_i\]
+ for any polynomials $P_k(x)$ of degree $k$.\\
+ Let $\displaystyle P_k(x) = \sum_{j=0}^k a_jx^j$. Then\\
+ $\displaystyle P_k(A)v_i=\sum_{j=0}^k a_jA^jv_i=\sum_{j=0}^k a_j A^{j-1}(\lambda_iv_i)=\sum_{j=0}^k a_j A^{j-2} (\lambda_i^2v_i) = \cdots =\sum_{j=0}^k a_j \lambda_i^jv_i = P_k(\lambda_i)v_i $\\
+ Since $[I+P_k(x)x]$ is a ploynomial, we have
+ \[ [I+P_k(A)A]v_i = [1+\lambda_iP_k(\lambda_i)]v_i\]
+ $A$ is symmetric, therefore, $[I+P_k(A)A]^T=[I+P_k(A)A]$\\
+ Now,we are ready to compute\\
+ \begin{align*}
+ [I+P_k(A)A]^TA[I+P_k(A)A]v_i &=[I+P_k(A)A]A[I+P_k(A)A]v_i\\
+ &=[I+P_k(A)A]A[1+\lambda_iP_k(\lambda_i)]v_i\\
+ &=[I+P_k(A)A](Av_i)[1+\lambda_iP_k(\lambda_i)]\\
+ &=[I+P_k(A)A]\lambda_iv_i[1+\lambda_iP_k(\lambda_i)]\\
+ &=[I+P_k(A)A]v_i\lambda_i[1+\lambda_iP_k(\lambda_i)]\\
+ &=[1+\lambda_iP_k(\lambda_i)]v_i\lambda_i[1+\lambda_iP_k(\lambda_i)]\\
+ &=\lambda_i[1+\lambda_iP_k(\lambda_i)]^2 v_i
+ \end{align*}
+ We conclude that $\lbrace \lambda_i[1+\lambda_iP_k(\lambda_i)]^2,v_i \rbrace ~ i=1,2,\cdots,n$
+ are the eigenpairs of \\
+ $[I+P_k(A)A]^TA[I+P_k(A)A]$.
+\end{proof}
+  
+\end{document} 
